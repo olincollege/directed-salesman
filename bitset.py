@@ -276,3 +276,9 @@ class BitSet:
         :return: a string representation of this BitSet
         """
         return '{' + ', '.join(str(i) for i in iter(self)) + '}'
+
+    def __repr__(self) -> str:
+        """
+        :return: a string representation of this BitSet
+        """
+        return str(self)
