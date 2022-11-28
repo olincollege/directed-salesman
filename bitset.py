@@ -51,17 +51,17 @@ class BitSet:
         res._value = self.full_set_value
         return res
 
-    def complement(self):
-        """
-        Makes this set into its complement
-        """
-        self._value = self.complement_value()
-
-    def to_complement(self) -> 'BitSet':
+    def complement(self) -> 'BitSet':
         """
         :return: a BitSet that is the complement of this set
         """
         return BitSet(self.max_value, self.complement_value())
+
+    def complement_update(self):
+        """
+        Makes this set into its complement
+        """
+        self._value = self.complement_value()
 
     def complement_value(self) -> int:
         """
@@ -240,7 +240,7 @@ class BitSet:
         return other.difference(self).isempty()
 
     def __invert__(self):
-        return self.to_complement()
+        return self.complement()
 
     def __contains__(self, i: int):
         """
