@@ -22,3 +22,19 @@ def random_graph(n: int) -> nx.Graph:
                                   for i, j in itertools.combinations(range(n), 2))
 
     return graph
+
+
+def length_of_path(graph, path):
+    """
+    Calculates the length of a given path within a given graph
+
+    :param graph: a nx.Graph to find the length of a path in
+    :param path: a list of nodes (ints) giving the order of the path
+    :return: a float, the length of the path within the graph
+    """
+    current = path[0]
+    length = 0
+    for nxt in path[1:]:
+        length += graph[current][nxt]['weight']
+        current = nxt
+    return length
