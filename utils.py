@@ -71,7 +71,7 @@ def circle_graph(n: int, is_directed: bool = False) -> nx.Graph:
                                     for i, j in itertools.combinations(range(n), 2))
     return graph
 
-def rectangle_graph(n: int, m: int, is_directed: bool = False) -> nx.Graph:
+def rectangle_graph(sizes: tuple, is_directed: bool = False) -> nx.Graph:
     """
     Generates a completed grid graph with a point on every vertex of the grid
 
@@ -79,6 +79,8 @@ def rectangle_graph(n: int, m: int, is_directed: bool = False) -> nx.Graph:
     :param m: an int, the height of the grid in the graph
     :return: a graph on a filled in grid of nodes with n * m vertices
     """
+    n = sizes[0]
+    m = sizes[1]
     graph = nx.DiGraph()
     #graph.add_nodes_from(range(n))
     points = []
