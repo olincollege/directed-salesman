@@ -16,8 +16,12 @@ def random_graph(n: int, is_directed: bool = False) -> nx.Graph:
     """
     if is_directed:
         graph = nx.DiGraph()
-        graph.add_nodes_from(range(n))
-        points = [(random.random(), random.random()) for _ in range(n)]
+        points = []
+        for k in range(n):
+            point = (random.random(), random.random())
+            points.append(point)
+            graph.add_node(k, pos=point)
+
         # for each pair of nodes, calculate distance and add weighted edge
         graph.add_weighted_edges_from((i, j, ((points[i][0] - points[j][0]) ** 2
                                               + (points[i][1] - points[j][1]) ** 2) ** 0.5)
@@ -30,7 +34,11 @@ def random_graph(n: int, is_directed: bool = False) -> nx.Graph:
     else:
         graph = nx.Graph()
         graph.add_nodes_from(range(n))
-        points = [(random.random(), random.random()) for _ in range(n)]
+        points = []
+        for k in range(n):
+            point = (random.random(), random.random())
+            points.append(point)
+            graph.add_node(k, pos=point)
         # for each pair of nodes, calculate distance and add weighted edge
         graph.add_weighted_edges_from((i, j, ((points[i][0] - points[j][0]) ** 2
                                               + (points[i][1] - points[j][1]) ** 2) ** 0.5)
