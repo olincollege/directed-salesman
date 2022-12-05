@@ -78,15 +78,14 @@ def rectangle_graph(n: int, m: int, is_directed: bool = False) -> nx.Graph:
         for l in range(m):
             point = (k/n, l/m)
             points.append(point)
-            graph.add_node(k, pos=point)
-
+            graph.add_node(k*n+l, pos=point)
     # for each pair of nodes, calculate distance and add weighted edge
     graph.add_weighted_edges_from((i, j, ((points[i][0] - points[j][0]) ** 2
                                             + (points[i][1] - points[j][1]) ** 2) ** 0.5)
-                                    for i, j in itertools.combinations(range(n), 2))
+                                    for i, j in itertools.combinations(range(n*m), 2))
     graph.add_weighted_edges_from((j, i, ((points[i][0] - points[j][0]) ** 2
                                             + (points[i][1] - points[j][1]) ** 2) ** 0.5)
-                                    for i, j in itertools.combinations(range(n), 2))
+                                    for i, j in itertools.combinations(range(n*m), 2))
     return graph
 
 def length_of_path(graph, path):
