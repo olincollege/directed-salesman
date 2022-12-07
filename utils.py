@@ -112,3 +112,12 @@ def length_of_path(graph, path):
         length += graph[current][nxt]['weight']
         current = nxt
     return length
+
+def create_adjacency_matrix(graph: nx.Graph):
+    """
+    Creates an adjacency matrix from the graph
+    
+    :param graph: a nx.Graph
+    :return: numpy adjacency matrix of the given graph
+    """
+    return nx.adjacency_matrix(graph)
