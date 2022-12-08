@@ -6,6 +6,8 @@ on various types of graph of various sizes
 import time
 import utils
 import networkx as nx
+import brute_force
+import math
 
 def run_on_determined_graph(graph: nx.Graph, algorithm, shortest_length: float) -> [float, float]:
     """
@@ -82,3 +84,46 @@ def run_on_generated_graph_no_correctness(graph_making_alg, algorithm, graph_siz
     graph = graph_making_alg(graph_size_args)
     taken_time = run_on_determined_graph_no_correctness(graph, algorithm)
     return taken_time
+
+def get_min_length_of_graph(graph: nx.Graph) -> float:
+    """
+    Gets the length of the shortest path through the given graph that hits every node.
+
+    Do not run for a graph with more than 10 nodes, 9 or fewer is preferable
+
+    :param graph: an nx Graph to find the shortest length of
+
+    :return: a float representing the length of the shortest path through the given graph
+    """
+    best_length, best_path = brute_force.brute_force(graph)
+    return best_length
+
+def get_min_length_of_circle(n: int) -> float:
+    """
+    Gets the length of the shortest path through a circle graph of n nodes.
+
+    :param n: the number of nodes in the circle graph
+
+    :return: a float representing the length of the shortest path through
+    a circle graph of n nodes
+    """
+    length = n * 2 * math.sin(math.pi/n)
+    return length
+
+def get_min_length_of_grid(width: int, height: int) -> float:
+    """
+    Gets the length of the shortest path through a grid graph of the given width and height
+
+    :param width: the number of nodes wide the desired grid graph is
+    :param height: the number of nodes high the desired grid graph is
+
+    :return: a float representing the length of the shortest path through
+    a grid graph with the given parameters
+    """
+    if width == 1 or height == 1:
+        return (max(width, height) - 1) * 2
+    if width%2 == 0 or height%2 == 0:
+        return width * height
+    # what if both odd and not one?
+
+    # figure out how this works
