@@ -1,4 +1,6 @@
 import numpy as np
+import networkx as nx
+from copy import copy
 
 def make_diag_infinite(matrix):
     """
@@ -11,7 +13,7 @@ def make_diag_infinite(matrix):
     """
     size = matrix.shape[1]
     for i in range(size):
-        matrix[i,i] = float("inf")
+        matrix[i,i] = np.inf
     return matrix
 
 def reduce_matrix(matrix):
@@ -36,51 +38,124 @@ def reduce_matrix(matrix):
     cost = 0
     for i in range(size):
         row = matrix[i, :]
-        row_min = row.min()
+        row_min = np.min(row)
+        if row_min == np.inf:
+            break
         row = row - row_min
         cost += row_min
         matrix[i,:] = row
     for j in range(size):
         col = matrix[:, j]
-        col_min = col.min()
+        col_min = np.min(col)
+        if col_min == np.inf:
+            break
         col = col - col_min
         cost += col_min
         matrix[:,j] = col
     reduced_matrix = matrix
     return reduced_matrix, cost
 
+def make_updated_array_for_movement(array: np.array, origin: int, dest: int) -> np.array:
+    """
+    sets all entries at the origin row, dest column, and dest, origin to infinity
+    """
+
+    array[origin,:] = float("inf")
+    array[:,dest] = float("inf")
+    array[dest,origin] = float("inf")
+    return array
+
 
 class Tree:
     """
     A tree to hold the possible paths through 
     """
-    def __init__(self, root, graph_nodes):
-        self.root = root
+    def __init__(self, graph_nodes, graph):
         self.graph_nodes = graph_nodes
+        self.graph = graph
 
 class Path_node:
-    def __init__(self, parent, children, graph_node, adjacency_matrix, tree, cost):
+    def __init__(self, parent, next_node):
         self.parent = parent
-        self.children = children
-        self.graph_node = graph_node
-        self.adjacency_matrix = adjacency_matrix
-        self.tree = tree
-        self.cost = cost
-        if self.parent is None:
-            self.remaining_graph_nodes = self.tree.graph_nodes
-        else: 
-            print(self.parent)
-            par = self.parent
-            self.remaining_graph_nodes = par.remaining_graph_nodes
-        self.remaining_graph_nodes.remove(self.graph_node)
+        parent_elapsed = self.parent.get_elapsed()
+        parent_remaining = copy(self.parent.get_remaining())
+        parent_adj = self.parent.get_adj()
+        self.parent_last = parent_elapsed[-1]
+        self.children = []
+        self.elapsed = parent_elapsed + [next_node]
+        #print(f"parent_remaining: {parent_remaining}")
+        self.remaining_graph_nodes = parent_remaining
+        self.remaining_graph_nodes.remove(next_node)
+        #print(f"self remaining: {self.remaining_graph_nodes}")
+        parent_adjacency_matrix = copy(parent_adj)
+        movement_cost = parent_adjacency_matrix[self.parent_last, next_node]
+        infinitized_adj = make_updated_array_for_movement(parent_adjacency_matrix, self.parent_last, next_node)
+        reduced, cost = reduce_matrix(infinitized_adj)
+        self.lower_bound = self.parent.lower_bound + cost + movement_cost
+        self.adjacency_matrix = reduced
     
     def __str__(self):
         par_string = str(self.parent)
         children_string = str(self.children)
-        graph_node_string = str(self.graph_node)
+        elapsed_string = str(self.elapsed)
+        remaining_string = str(self.remaining_graph_nodes)
+        lower_bound_string = str(self.lower_bound)
         adj_mat_string = str(self.adjacency_matrix)
-        cost_string = str(self.cost)
-        rem_graph_node_string = str(self.remaining_graph_nodes)
-        print_string = f"parent: {par_string}\nchildren: {children_string}\ngraph_node: {graph_node_string}\nadj mat: \n{adj_mat_string}\ncost: {cost_string}\nremaining graph nodes: {rem_graph_node_string}"
+        print_string = f"children: {children_string}\nelapsed: {elapsed_string}\nadj mat: \n{adj_mat_string}\nlower bound: {lower_bound_string}\nremaining graph nodes: {remaining_string}"
         return print_string
     
+    def branch(self, node):
+        vertex = Path_node(self, node)
+        self.children.append(vertex)
+        return vertex
+    def get_elapsed(self):
+        return self.elapsed
+    def get_remaining(self):
+        return self.remaining_graph_nodes
+    def get_adj(self):
+        return self.adjacency_matrix
+    def has_nodes_remaining(self):
+        if len(self.remaining_graph_nodes) == 0:
+            return True
+        return False
+
+class Root_Node:
+    """
+    
+    """
+    def __init__(self, graph: nx.Graph):
+        self.children = []
+        self.elapsed = [0]
+        self.remaining_graph_nodes = list(graph.nodes)
+        self.remaining_graph_nodes.remove(0)
+        initial_adj = nx.to_numpy_matrix(graph)
+        infinitized = make_diag_infinite(initial_adj)
+        reduced, cost = reduce_matrix(infinitized)
+        self.adjacency_matrix = reduced
+        self.lower_bound = cost
+    
+    def __str__(self):
+        children_string = str(self.children)
+        elapsed_string = str(self.elapsed)
+        remaining_string = str(self.remaining_graph_nodes)
+        lower_bound_string = str(self.lower_bound)
+        adj_mat_string = str(self.adjacency_matrix)
+        print_string = f"children: {children_string}\nelapsed: {elapsed_string}\nadj mat: \n{adj_mat_string}\nlower bound: {lower_bound_string}\nremaining graph nodes: {remaining_string}"
+        return print_string
+    
+    def branch(self, node):
+        vertex = Path_node(self, node)
+        self.children.append(vertex)
+        return vertex
+
+    def get_elapsed(self):
+        return self.elapsed
+    def get_remaining(self):
+        return self.remaining_graph_nodes
+    def get_adj(self):
+        return self.adjacency_matrix
+    def has_nodes_remaining(self):
+        if len(self.remaining_graph_nodes) == 0:
+            return True
+        return False
+
