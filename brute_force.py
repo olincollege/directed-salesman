@@ -22,7 +22,6 @@ def _brute_force_rec(graph: nx.Graph, path: Set[int], last_node: int) -> Tuple[f
         the remainder of the path, reversed
     """
     if len(path) == len(graph) - 1:
-        print(f'Going from {last_node} to 0 is a dist of {graph[last_node][0]["weight"]}')
         return graph[last_node][0]['weight'], []
     shortest_dist = -1
     shortest_path = []
@@ -37,7 +36,6 @@ def _brute_force_rec(graph: nx.Graph, path: Set[int], last_node: int) -> Tuple[f
             shortest_dist = act_dist
             shortest_path = rem_path
             shortest_path.append(node)
-    print(f'The best remaining path after going through {path} is {shortest_path} with dist {shortest_dist}')
     return shortest_dist, shortest_path
 
 
