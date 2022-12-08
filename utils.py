@@ -48,8 +48,11 @@ def random_graph(n: int, is_directed: bool = False) -> nx.Graph:
 def barbell_graph(n: int) -> nx.Graph:
     """
     Generates a barbell graph with a total of n nodes
+
+    :param n: the total number of nodes 
     """
-    graph = nx.DiGraph()
+    graph = nx.Graph()
+    dist_between_ends = 5
     points = []
     left_points = n//2
     right_points = n - left_points
@@ -58,7 +61,7 @@ def barbell_graph(n: int) -> nx.Graph:
         points.append(point)
         graph.add_node(k, pos=point)
     for h in range(right_points):
-        point = (random.random() + 2, random.random())
+        point = (random.random() + dist_between_ends, random.random())
         points.append(point)
         graph.add_node(h + left_points, pos=point)
     graph.add_weighted_edges_from((i, j, ((points[i][0] - points[j][0]) ** 2
@@ -76,7 +79,30 @@ def barbell_graph(n: int) -> nx.Graph:
     
     return graph
                                      
+def complete_barbell(n: int) -> nx.Graph:
+    """
+    Generates a "complete" barbell graph with a total of n nodes,
+    so every 
+    """
+    dist_between_ends = 5
+    graph = nx.Graph()
+    points = []
+    left_points = n//2
+    right_points = n - left_points
+    for k in range(left_points):
+        point = (random.random(), random.random())
+        points.append(point)
+        graph.add_node(k, pos=point)
+    for h in range(right_points):
+        point = (random.random() + dist_between_ends, random.random())
+        points.append(point)
+        graph.add_node(h + left_points, pos=point)
     
+    graph.add_weighted_edges_from((i, j, ((points[i][0] - points[j][0]) ** 2
+                                              + (points[i][1] - points[j][1]) ** 2) ** 0.5)
+                                      for i, j in itertools.combinations(range(n), 2))
+    
+    return graph
 
 def circle_graph(n: int, is_directed: bool = False) -> nx.Graph:
     """
