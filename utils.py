@@ -79,16 +79,18 @@ def rectangle_graph(sizes: tuple, is_directed: bool = False) -> nx.Graph:
     :param m: an int, the height of the grid in the graph
     :return: a graph on a filled in grid of nodes with n * m vertices
     """
-    n = sizes[0]
-    m = sizes[1]
+    n = min(sizes)
+    m = max(sizes)
     graph = nx.DiGraph()
     #graph.add_nodes_from(range(n))
     points = []
+    count = 0
     for k in range(n):
         for l in range(m):
-            point = (k/n, l/m)
+            point = (k, l)
             points.append(point)
-            graph.add_node(k*n+l, pos=point)
+            graph.add_node(count, pos=point)
+            count += 1
     # for each pair of nodes, calculate distance and add weighted edge
     graph.add_weighted_edges_from((i, j, ((points[i][0] - points[j][0]) ** 2
                                             + (points[i][1] - points[j][1]) ** 2) ** 0.5)
