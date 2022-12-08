@@ -98,6 +98,7 @@ def rectangle_graph(sizes: tuple, is_directed: bool = False) -> nx.Graph:
                                     for i, j in itertools.combinations(range(n*m), 2))
     return graph
 
+
 def length_of_path(graph, path):
     """
     Calculates the length of a given path within a given graph
@@ -112,6 +113,7 @@ def length_of_path(graph, path):
         length += graph[current][nxt]['weight']
         current = nxt
     return length
+
 
 def create_adjacency_matrix(graph: nx.Graph):
     """
