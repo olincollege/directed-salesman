@@ -124,6 +124,5 @@ def get_min_length_of_grid(width: int, height: int) -> float:
         return (max(width, height) - 1) * 2
     if width%2 == 0 or height%2 == 0:
         return width * height
-    # what if both odd and not one?
-
-    # figure out how this works
+    else:
+        return width * height - 1 + math.sqrt(2)
