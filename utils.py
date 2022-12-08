@@ -45,6 +45,39 @@ def random_graph(n: int, is_directed: bool = False) -> nx.Graph:
                                       for i, j in itertools.combinations(range(n), 2))
     return graph
 
+def barbell_graph(n: int) -> nx.Graph:
+    """
+    Generates a barbell graph with a total of n nodes
+    """
+    graph = nx.DiGraph()
+    points = []
+    left_points = n//2
+    right_points = n - left_points
+    for k in range(left_points):
+        point = (random.random(), random.random())
+        points.append(point)
+        graph.add_node(k, pos=point)
+    for h in range(right_points):
+        point = (random.random() + 2, random.random())
+        points.append(point)
+        graph.add_node(h + left_points, pos=point)
+    graph.add_weighted_edges_from((i, j, ((points[i][0] - points[j][0]) ** 2
+                                              + (points[i][1] - points[j][1]) ** 2) ** 0.5)
+                                      for i, j in itertools.combinations(range(left_points), 2))
+    graph.add_weighted_edges_from((left_points + i, left_points + j, ((points[i][0] - points[j][0]) ** 2
+                                              + (points[i][1] - points[j][1]) ** 2) ** 0.5)
+                                      for i, j in itertools.combinations(range(right_points), 2))
+    left_node = 1 - 1
+    right_node = n - 1
+    x_dist = points[left_node][0] - points[right_node][0]
+    y_dist = points[left_node][1] - points[right_node][1]
+    real_dist = (x_dist ** 2 + y_dist ** 2) ** 0.5
+    graph.add_edge(0, right_node, weight=real_dist)
+    
+    return graph
+                                     
+    
+
 def circle_graph(n: int, is_directed: bool = False) -> nx.Graph:
     """
     Generates a complete graph of the outline of a circle
