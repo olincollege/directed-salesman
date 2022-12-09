@@ -6,12 +6,11 @@ from utils import random_graph, create_adjacency_matrix
 def dp_runner(i, bitmask, distance_matrix):
     """
     Traverses the graph and finds the shortest Hamiltonian path on a graph 
-    using dynamic programming by caching inner paths to find most optimal path
+    using dynamic programming by caching inner paths to find outer most optimal path
 
     :i: ith node
     :bitmask: represents the remaining nodes in the subset (TODO: bits are faster to operate)
-
-    :returns: cost of the most efficient path
+    :return: cost of the most efficient path
     """
     n = len(distance_matrix)
 
@@ -45,9 +44,8 @@ def dp(graph: nx.Graph) -> Tuple[float, List[int]]:
     Implementation and testing of a DP-based TSP Search algorithm
 
     :param graph: a graph of unspecified type and `n` nodes
-
+    :return: a tuple - first a float giving the length of the path, and then a list of ints giving the path
     """
-
     best_length = 10**9
     best_path = []
 
