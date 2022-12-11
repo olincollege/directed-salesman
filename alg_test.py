@@ -85,7 +85,7 @@ def run_on_generated_graph_no_correctness(graph_making_alg, algorithm, graph_siz
     taken_time = run_on_determined_graph_no_correctness(graph, algorithm)
     return taken_time
 
-def get_min_length_of_graph(graph: nx.Graph) -> float:
+def get_min_length_brute_force(graph: nx.Graph) -> float:
     """
     Gets the length of the shortest path through the given graph that hits every node.
 
@@ -126,3 +126,47 @@ def get_min_length_of_grid(width: int, height: int) -> float:
         return width * height
     else:
         return width * height - 1 + math.sqrt(2)
+
+def get_largest_factor(n: int) -> int:
+    """
+    Returns the greatest whole factor less than n
+    """
+    factor = n//2
+    while True:
+        if factor == 0:
+            return -1
+        if ((n / factor) % 1) == 0:
+            return factor
+        factor = factor - 1
+
+def run_on_range_with_correct(graph_making_alg, algorithm, sizes):
+    """
+    
+    """
+    times = []
+    correctnesses = []
+    for size in sizes:
+        graph = graph_making_alg(size)
+        if graph_making_alg == utils.circle_graph:
+            shortest_length = get_min_length_of_circle(size)
+        elif graph_making_alg == utils.rectangle_graph:
+            width = get_largest_factor(size)
+            height = size / width
+            shortest_length = get_min_length_of_grid(width, height)
+        else:
+            shortest_length = get_min_length_brute_force(graph)
+        taken_time, correctness = run_on_determined_graph(graph, algorithm, shortest_length)
+        times.append(taken_time)
+        correctnesses.append(correctness)
+    return times, correctnesses
+        
+def run_on_range_no_correct(graph_making_alg, algorithm, sizes):
+    """
+    
+    """
+    times = []
+    for size in sizes:
+        graph = graph_making_alg(size)
+        taken_time = run_on_determined_graph_no_correctness(graph, algorithm)
+        times.append(taken_time)
+    return times
