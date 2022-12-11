@@ -116,8 +116,8 @@ class Path_node:
         return self.adjacency_matrix
     def has_nodes_remaining(self):
         if len(self.remaining_graph_nodes) == 0:
-            return True
-        return False
+            return False
+        return True
 
 class Root_Node:
     """
@@ -156,6 +156,6 @@ class Root_Node:
         return self.adjacency_matrix
     def has_nodes_remaining(self):
         if len(self.remaining_graph_nodes) == 0:
-            return True
-        return False
+            return False
+        return True
 
