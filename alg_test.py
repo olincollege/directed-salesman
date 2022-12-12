@@ -208,3 +208,20 @@ def run_multiple_on_range_no_correct(graph_making_alg, algorithm, sizes, num_run
     return super_times
     
 
+"""
+def run_mult_func_with_correct(graph_making_alg, algorithms, sizes, num_runs):    
+    hyper_times = []
+    hyper_corrs = []
+    for algorithm in algorithms:
+        times, corrs = run_multiple_on_range_with_correct(graph_making_alg, algorithm, sizes, num_runs)
+        hyper_times.append(times)
+        hyper_corrs.append(corrs)
+    return hyper_times, hyper_corrs
+
+def run_mult_func_no_correct(graph_making_alg, algorithms, sizes, num_runs):    
+    hyper_times = []
+    for algorithm in algorithms:
+        times = run_multiple_on_range_no_correct(graph_making_alg, algorithm, sizes, num_runs)
+        hyper_times.append(times)
+    return hyper_times
+"""
