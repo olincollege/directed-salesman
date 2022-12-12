@@ -8,6 +8,7 @@ import utils
 import networkx as nx
 import brute_force
 import math
+import held_karp
 
 def run_on_determined_graph(graph: nx.Graph, algorithm, shortest_length: float) -> [float, float]:
     """
@@ -85,7 +86,7 @@ def run_on_generated_graph_no_correctness(graph_making_alg, algorithm, graph_siz
     taken_time = run_on_determined_graph_no_correctness(graph, algorithm)
     return taken_time
 
-def get_min_length_brute_force(graph: nx.Graph) -> float:
+def get_min_length_held_karp(graph: nx.Graph) -> float:
     """
     Gets the length of the shortest path through the given graph that hits every node.
 
@@ -95,7 +96,7 @@ def get_min_length_brute_force(graph: nx.Graph) -> float:
 
     :return: a float representing the length of the shortest path through the given graph
     """
-    best_length, best_path = brute_force.brute_force(graph)
+    best_length, best_path = held_karp.held_karp(graph)
     return best_length
 
 def get_min_length_of_circle(n: int) -> float:
@@ -146,15 +147,18 @@ def run_on_range_with_correct(graph_making_alg, algorithm, sizes):
     times = []
     correctnesses = []
     for size in sizes:
-        graph = graph_making_alg(size)
+        
         if graph_making_alg == utils.circle_graph:
             shortest_length = get_min_length_of_circle(size)
+            graph = graph_making_alg(size)
         elif graph_making_alg == utils.rectangle_graph:
             width = get_largest_factor(size)
-            height = size / width
+            height = int(size / width)
             shortest_length = get_min_length_of_grid(width, height)
+            graph = graph_making_alg([width, height])
         else:
-            shortest_length = get_min_length_brute_force(graph)
+            graph = graph_making_alg(size)
+            shortest_length = get_min_length_held_karp(graph)
         taken_time, correctness = run_on_determined_graph(graph, algorithm, shortest_length)
         times.append(taken_time)
         correctnesses.append(correctness)
