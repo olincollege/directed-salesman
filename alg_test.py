@@ -170,3 +170,41 @@ def run_on_range_no_correct(graph_making_alg, algorithm, sizes):
         taken_time = run_on_determined_graph_no_correctness(graph, algorithm)
         times.append(taken_time)
     return times
+
+def run_multiple_on_range_with_correct(graph_making_alg, algorithm, sizes, num_runs):
+    """
+    
+    """
+    super_times = []
+    super_correct = []
+    for size in sizes:
+        times = []
+        corrs = []
+        for run in range(num_runs):
+            taken, corr = run_on_range_with_correct(graph_making_alg, algorithm, [size])
+            taken = taken[0]
+            corr = corr[0]
+            times.append(taken)
+            corrs.append(corr)
+        avg_time = sum(times) / num_runs
+        avg_corr = sum(corrs) / num_runs
+        super_times.append(avg_time)
+        super_correct.append(avg_corr)
+    return super_times, super_correct
+
+def run_multiple_on_range_no_correct(graph_making_alg, algorithm, sizes, num_runs):
+    """
+    
+    """
+    super_times = []
+    for size in sizes:
+        times = []
+        for run in range(num_runs):
+            taken = run_on_range_no_correct(graph_making_alg, algorithm, [size])
+            taken = taken[0]
+            times.append(taken)
+        avg_time = sum(times) / num_runs
+        super_times.append(avg_time)
+    return super_times
+    
+
