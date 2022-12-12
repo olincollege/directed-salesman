@@ -9,17 +9,17 @@ class BitSet:
     A set using bitstring representation and bitwise operations
 
     Attributes:
-        max_value: the largest integer this set stores (one less than the number of bits this set represents)
+        num_values: an int, the maximum number of values this set can store
         value: the bitstring representation of this set as an int
     """
-    def __init__(self, max_value: int, base_set: Optional[Union[Set[int], int]] = None):
+    def __init__(self, num_values: int, base_set: Optional[Union[Set[int], int]] = None):
         """
         Initializes a BitSet with the given base set
 
         :param base_set: a set of ints to add to this set, the value (int) of this set,
             or None to initialize the empty set.
         """
-        self._nbits = max_value + 1
+        self._nbits = num_values
         self._value = 0
         if base_set is not None:
             if isinstance(base_set, int):
@@ -33,8 +33,8 @@ class BitSet:
         return self._value
 
     @property
-    def max_value(self) -> int:
-        return self._nbits - 1
+    def num_values(self) -> int:
+        return self._nbits
 
     @property
     def full_set_value(self) -> int:
@@ -47,7 +47,7 @@ class BitSet:
         """
         :return: a BitSet of the same size with all elements
         """
-        res = BitSet(self.max_value)
+        res = BitSet(self.num_values)
         res._value = self.full_set_value
         return res
 
@@ -55,7 +55,7 @@ class BitSet:
         """
         :return: a BitSet that is the complement of this set
         """
-        return BitSet(self.max_value, self.complement_value())
+        return BitSet(self.num_values, self.complement_value())
 
     def complement_update(self):
         """
@@ -106,7 +106,7 @@ class BitSet:
         """
         :return: a copy of this BitSet
         """
-        return BitSet(self.max_value, self.value)
+        return BitSet(self.num_values, self.value)
 
     def union(self, *others: 'BitSet') -> 'BitSet':
         """
@@ -116,12 +116,12 @@ class BitSet:
         :return: a BitSet giving the union between all the sets (with the largest max_value)
         """
         value = self.value
-        max_val = self.max_value
+        num_vals = self.num_values
         for other in others:
             value = value | int(other)
-            if isinstance(other, BitSet) and max_val < other.max_value:
-                max_val = other.max_value
-        return BitSet(max_val, value)
+            if isinstance(other, BitSet) and num_vals < other.num_values:
+                num_vals = other.num_values
+        return BitSet(num_vals, value)
 
     def update(self, *others: 'BitSet'):
         """
@@ -132,8 +132,8 @@ class BitSet:
         """
         for other in others:
             self._value = self.value | int(other)
-            if isinstance(other, BitSet) and self.max_value < other.max_value:
-                self._nbits = other.max_value + 1
+            if isinstance(other, BitSet) and self.num_values < other.num_values:
+                self._nbits = other.num_values
 
     def intersection(self, *others: 'BitSet') -> 'BitSet':
         """
@@ -143,12 +143,12 @@ class BitSet:
         :return: a BitSet giving the intersection over all the sets
         """
         value = self.value
-        max_val = self.max_value
+        num_vals = self.num_values
         for other in others:
             value = value & int(other)
-            if isinstance(other, BitSet) and max_val < other.max_value:
-                max_val = other.max_value
-        return BitSet(max_val, value)
+            if isinstance(other, BitSet) and num_vals < other.num_values:
+                max_val = other.num_values
+        return BitSet(num_vals, value)
 
     def intersection_update(self, *others: 'BitSet'):
         """
@@ -160,8 +160,8 @@ class BitSet:
         """
         for other in others:
             self._value = self.value & int(other)
-            if isinstance(other, BitSet) and self.max_value < other.max_value:
-                self._nbits = other.max_value + 1
+            if isinstance(other, BitSet) and self.num_values < other.num_values:
+                self._nbits = other.num_values
 
     def difference(self, *others: 'BitSet') -> 'BitSet':
         """
@@ -173,7 +173,7 @@ class BitSet:
         value = self.value
         for other in others:
             value = value & other.complement_value()
-        return BitSet(self.max_value, value)
+        return BitSet(self.num_values, value)
 
     def difference_update(self, *others: 'BitSet'):
         """
@@ -193,7 +193,7 @@ class BitSet:
         :param others: the BitSet to take the symmetric difference with
         :return: the symmetric difference of `self` and `other`
         """
-        return BitSet(max(self.max_value, other.max_value), self.value ^ other.value)
+        return BitSet(max(self.num_values, other.num_values), self.value ^ other.value)
 
     def symmetric_difference_update(self, other: 'BitSet'):
         """
@@ -203,7 +203,7 @@ class BitSet:
 
         :param others: the BitSet to take the symmetric difference with
         """
-        self._nbits = max(self.max_value, other.max_value) + 1
+        self._nbits = max(self.num_values, other.num_values)
         self._value = self.value ^ other.value
 
     def isempty(self) -> bool:
@@ -255,9 +255,11 @@ class BitSet:
         """
         :return: an iterable over the elements in this set
         """
-        for i in range(self.max_value):
-            if i in self:
+        val = self.value
+        for i in range(self.num_values):
+            if val & 1 == 1:
                 yield i
+            val >>= 1
 
     def __len__(self) -> int:
         """
@@ -282,3 +284,22 @@ class BitSet:
         :return: a string representation of this BitSet
         """
         return str(self)
+
+    def __hash__(self) -> int:
+        """
+        :return: a hash for this set
+        """
+        return hash(self.value)
+
+    def __eq__(self, other) -> bool:
+        """
+        Calculates whether this set is equal to another set
+
+        :param other: a BitSet to compare this set to
+        :return: True if the two sets are equal, else False
+        """
+        if not isinstance(other, BitSet):
+            return False
+        if self.num_values != other.num_values:
+            return False
+        return self.value == other.value
