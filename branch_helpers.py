@@ -65,6 +65,26 @@ def make_updated_array_for_movement(array: np.array, origin: int, dest: int) -> 
     array[dest,origin] = float("inf")
     return array
 
+def insert_node_in_sorted_list(sorted_list: list, node) -> list:
+    """
+    
+    """
+    index = 0
+    length = len(sorted_list)
+    if sorted_list == []:
+        return [node]
+    # print(f"sorted list: {sorted_list}")
+    # print(f"length: {length}")
+    while node.lower_bound > sorted_list[index].lower_bound:
+        if (index + 1) == length:
+            break
+        index += 1
+        
+
+    sorted_list.insert(index, node)
+    return sorted_list
+    
+
 
 class Tree:
     """

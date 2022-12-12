@@ -9,27 +9,20 @@ def branch_and_bound(graph):
     """
 
     root = helpers.Root_Node(graph)
-    size = graph.number_of_nodes()
-
-    current_level_nodes = [root]
+    sorted_active_nodes = [root]
+    list_cap = 10
     while True:
-        if len(current_level_nodes) == 0:
+        node = sorted_active_nodes[0]
+        if node.remaining_graph_nodes == []:
             break
-        curr_min_cost = np.inf
-        curr_min_nodes = []
-        for node in current_level_nodes:
-            if node.remaining_graph_nodes == []:
-                break
+        sorted_active_nodes.pop(0)
+        if node.remaining_graph_nodes != []:
             for x in node.remaining_graph_nodes:
                 child = node.branch(x)
-                if child.lower_bound < curr_min_cost:
-                    curr_min_cost = child.lower_bound
-                    curr_min_nodes = [child]
-                elif child.lower_bound == curr_min_cost:
-                    curr_min_nodes.append(child)
-                else:
-                    pass
-        current_level_nodes = curr_min_nodes
+                sorted_active_nodes = helpers.insert_node_in_sorted_list(sorted_active_nodes, child)
+        if len(sorted_active_nodes) >= list_cap:
+            sorted_active_nodes = sorted_active_nodes[:list_cap]
+    
     cost = node.lower_bound
     path = node.elapsed
     path.append(0)
