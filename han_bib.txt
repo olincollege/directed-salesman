@@ -1,0 +1,4 @@
+https://www.geeksforgeeks.org/traveling-salesman-problem-using-branch-and-bound-2/
+https://www.youtube.com/watch?v=aaaVm6uUY5A
+https://www.techiedelight.com/travelling-salesman-problem-using-branch-and-bound/
+https://codecrucks.com/travelling-salesman-problem-solved-using-branch-and-bound/
