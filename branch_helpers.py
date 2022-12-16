@@ -57,7 +57,19 @@ def reduce_matrix(matrix):
 
 def make_updated_array_for_movement(array: np.array, origin: int, dest: int) -> np.array:
     """
-    sets all entries at the origin row, dest column, and dest, origin to infinity
+    Sets all entries at the origin row, dest column, and dest, origin to infinity. Used
+    for marking an edge as traveled (once an edge is traveled, the path will never again
+    leave from that edge's origin vertex or arrive at its destination, so we can safely 
+    remove them by weighting them so high they'll never be chosen). Additionally, we'll
+    never go back the way we came, so we can set the edge going the opposite direction to
+    infinity in the same manner.
+
+    :param array: an np array, the current adjacency matrix that should be edited
+    :param origin: the node representing the origin of the added edge
+    :param dest: the node representing the destination of the added edge
+
+    returns:
+    :array: the original array with the appropriate locations set to infinity.
     """
 
     array[origin,:] = float("inf")
@@ -67,14 +79,20 @@ def make_updated_array_for_movement(array: np.array, origin: int, dest: int) -> 
 
 def insert_node_in_sorted_list(sorted_list: list, node) -> list:
     """
-    
+    Inserts a node into a list of nodes sorted by their cost. Used by the node class
+    to keep track of which nodes are the most promising and allow linear time retrieval
+    of the most promising node.
+
+    :param sorted_list: a list of nodes sorted by their cost
+    :param node: the node to add
+
+    returns:
+    :list: the updated list of nodes
     """
     index = 0
     length = len(sorted_list)
     if sorted_list == []:
         return [node]
-    # print(f"sorted list: {sorted_list}")
-    # print(f"length: {length}")
     while node.lower_bound > sorted_list[index].lower_bound:
         if (index + 1) == length:
             break
@@ -84,17 +102,10 @@ def insert_node_in_sorted_list(sorted_list: list, node) -> list:
     sorted_list.insert(index, node)
     return sorted_list
     
-
-
-class Tree:
-    """
-    A tree to hold the possible paths through 
-    """
-    def __init__(self, graph_nodes, graph):
-        self.graph_nodes = graph_nodes
-        self.graph = graph
-
 class Path_node:
+    """
+    
+    """
     def __init__(self, parent, next_node):
         self.parent = parent
         parent_elapsed = self.parent.get_elapsed()
@@ -103,10 +114,8 @@ class Path_node:
         self.parent_last = parent_elapsed[-1]
         self.children = []
         self.elapsed = parent_elapsed + [next_node]
-        #print(f"parent_remaining: {parent_remaining}")
         self.remaining_graph_nodes = parent_remaining
         self.remaining_graph_nodes.remove(next_node)
-        #print(f"self remaining: {self.remaining_graph_nodes}")
         parent_adjacency_matrix = copy(parent_adj)
         movement_cost = parent_adjacency_matrix[self.parent_last, next_node]
         infinitized_adj = make_updated_array_for_movement(parent_adjacency_matrix, self.parent_last, next_node)
