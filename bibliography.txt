@@ -9,6 +9,9 @@ All these resources were used to research how the branch and bound algorithm wor
 [2] “Traveling Salesman Problem Using Branch and Bound.” GeeksforGeeks, 31 Oct. 2022, https://www.geeksforgeeks.org/traveling-salesman-problem-using-branch-and-bound-2/. 
 [3] “Travelling Salesman Problem Using Branch and Bound.” Techie Delight, 21 May 2021, https://www.techiedelight.com/travelling-salesman-problem-using-branch-and-bound/. 
 [4] Codecrucks. “Travelling Salesman Problem - Solved Using Branch and Bound.” CodeCrucks, 10 June 2022, https://codecrucks.com/travelling-salesman-problem-solved-using-branch-and-bound/. 
+
+These resources were used to research the principles behind the nearset neighbor algorithm and also the definition of greedy algorithms. 
 [5] O’Neil, D.J. (2017). Nearest Neighbor Problem. In: Shekhar, S., Xiong, H., Zhou, X. (eds) Encyclopedia of GIS. Springer, Cham. https://doi.org/10.1007/978-3-319-17885-1_869
 [6] “Nearest Neighbor Search.” Wikipedia, Wikimedia Foundation, 26 Nov. 2022, https://en.wikipedia.org/wiki/Nearest_neighbor_search. 
 [7] Butch, Amber. “What Is Greedy Algorithm: Example, Applications and More: Simplilearn.” Simplilearn.com, Simplilearn, 27 Sept. 2022, https://www.simplilearn.com/tutorials/data-structure-tutorial/greedy-algorithm#what_is_greedy_algorithm. 
+[8] Koether, Robb T. “Lecture 20 Nearest Neighbor Algorithm.” Lecture 31 Section 6.4.
