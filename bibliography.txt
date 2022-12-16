@@ -9,21 +9,22 @@ These resources were used to define the Travelling Salesman Problem as well as d
 
 These resources were used to research the principles behind the Held-Karp (Dynamic Programming) solutions, implementing the algorithms, as well as research what dynamic programming is and how best to explain implementing
 [6] Wikipedia Contributors. “Dynamic Programming.” Wikipedia, Wikimedia Foundation, 15 Feb. 2019, en.wikipedia.org/wiki/Dynamic_programming.
-[7] “4.7 [New] Traveling Salesman Problem - Dynamic Programming Using Formula.” Www.youtube.com, www.youtube.com/watch?v=Q4zHb-Swzro&t=118s&ab_channel=AbdulBari. Accessed 16 Dec. 2022.
-[8] Joshi, Vaidehi. “Speeding up the Traveling Salesman Using Dynamic Programming.” Medium, 13 Nov. 2017, medium.com/basecs/speeding-up-the-traveling-salesman-using-dynamic-programming-b76d7552e8dd.
-[9] “Adjacency_matrix — NetworkX 2.8.8 Documentation.” Networkx.org, networkx.org/documentation/stable/reference/generated/networkx.linalg.graphmatrix.adjacency_matrix.html. Accessed 16 Dec. 2022.
-[10] Python, Real. “Bitwise Operators in Python – Real Python.” Realpython.com, realpython.com/python-bitwise-operators/.
-[11] Dynamic Programming. people.eecs.berkeley.edu/~vazirani/algorithms/chap6.pdf.
+[7] Wikipedia Contributors. "Held-Karp Algorithm." Wikipedia, Wikimedia Foundation, 2022, en.wikipedia.org/wiki/Held%E2%80%93Karp_algorithm.
+[8] “4.7 [New] Traveling Salesman Problem - Dynamic Programming Using Formula.” Www.youtube.com, www.youtube.com/watch?v=Q4zHb-Swzro&t=118s&ab_channel=AbdulBari. Accessed 16 Dec. 2022.
+[9] Joshi, Vaidehi. “Speeding up the Traveling Salesman Using Dynamic Programming.” Medium, 13 Nov. 2017, medium.com/basecs/speeding-up-the-traveling-salesman-using-dynamic-programming-b76d7552e8dd.
+[10] “Adjacency_matrix — NetworkX 2.8.8 Documentation.” Networkx.org, networkx.org/documentation/stable/reference/generated/networkx.linalg.graphmatrix.adjacency_matrix.html. Accessed 16 Dec. 2022.
+[11] Python, Real. “Bitwise Operators in Python – Real Python.” Realpython.com, realpython.com/python-bitwise-operators/.
+[12] Dynamic Programming. people.eecs.berkeley.edu/~vazirani/algorithms/chap6.pdf.
 
 All these resources were used to research how the branch and bound algorithm works on a fundamental level.
 
-[12] “Travelling Salesman Problem | Branch and Bound | Scholarly Things.” YouTube, YouTube, 11 May 2022, https://www.youtube.com/watch?v=aaaVm6uUY5A.
-[13] “Traveling Salesman Problem Using Branch and Bound.” GeeksforGeeks, 31 Oct. 2022, https://www.geeksforgeeks.org/traveling-salesman-problem-using-branch-and-bound-2/. 
-[14] “Travelling Salesman Problem Using Branch and Bound.” Techie Delight, 21 May 2021, https://www.techiedelight.com/travelling-salesman-problem-using-branch-and-bound/. 
-[15] Codecrucks. “Travelling Salesman Problem - Solved Using Branch and Bound.” CodeCrucks, 10 June 2022, https://codecrucks.com/travelling-salesman-problem-solved-using-branch-and-bound/. 
+[13] “Travelling Salesman Problem | Branch and Bound | Scholarly Things.” YouTube, YouTube, 11 May 2022, https://www.youtube.com/watch?v=aaaVm6uUY5A.
+[14] “Traveling Salesman Problem Using Branch and Bound.” GeeksforGeeks, 31 Oct. 2022, https://www.geeksforgeeks.org/traveling-salesman-problem-using-branch-and-bound-2/.
+[15] “Travelling Salesman Problem Using Branch and Bound.” Techie Delight, 21 May 2021, https://www.techiedelight.com/travelling-salesman-problem-using-branch-and-bound/.
+[16] Codecrucks. “Travelling Salesman Problem - Solved Using Branch and Bound.” CodeCrucks, 10 June 2022, https://codecrucks.com/travelling-salesman-problem-solved-using-branch-and-bound/.
 
 These resources were used to research the principles behind the nearset neighbor algorithm and also the definition of greedy algorithms. 
-[16] O’Neil, D.J. (2017). Nearest Neighbor Problem. In: Shekhar, S., Xiong, H., Zhou, X. (eds) Encyclopedia of GIS. Springer, Cham. https://doi.org/10.1007/978-3-319-17885-1_869
-[17] “Nearest Neighbor Search.” Wikipedia, Wikimedia Foundation, 26 Nov. 2022, https://en.wikipedia.org/wiki/Nearest_neighbor_search. 
-[18] Butch, Amber. “What Is Greedy Algorithm: Example, Applications and More: Simplilearn.” Simplilearn.com, Simplilearn, 27 Sept. 2022, https://www.simplilearn.com/tutorials/data-structure-tutorial/greedy-algorithm#what_is_greedy_algorithm. 
-[19] Koether, Robb T. “Lecture 20 Nearest Neighbor Algorithm.” Lecture 31 Section 6.4.
+[17] O’Neil, D.J. (2017). Nearest Neighbor Problem. In: Shekhar, S., Xiong, H., Zhou, X. (eds) Encyclopedia of GIS. Springer, Cham. https://doi.org/10.1007/978-3-319-17885-1_869
+[18] “Nearest Neighbor Search.” Wikipedia, Wikimedia Foundation, 26 Nov. 2022, https://en.wikipedia.org/wiki/Nearest_neighbor_search.
+[19] Butch, Amber. “What Is Greedy Algorithm: Example, Applications and More: Simplilearn.” Simplilearn.com, Simplilearn, 27 Sept. 2022, https://www.simplilearn.com/tutorials/data-structure-tutorial/greedy-algorithm#what_is_greedy_algorithm.
+[20] Koether, Robb T. “Lecture 20 Nearest Neighbor Algorithm.” Lecture 31 Section 6.4.
