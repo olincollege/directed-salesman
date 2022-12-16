@@ -1,5 +1,10 @@
 """
 A module that implements bitstring-based sets
+
+Python sets are linear-time for operations like union and difference.
+Since these are commonplace operations, it is helpful to use a bitstring
+representation, which can perform these operations with low-level bit
+operations which happen in near-constant time.
 """
 from typing import *
 
