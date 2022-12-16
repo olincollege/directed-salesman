@@ -33,6 +33,8 @@ def reduce_matrix(matrix):
     return: 
     reduced_matrix, adjacency matrix (np array) reduced
     cost, sum of minimums
+
+    NOTE: THIS IS N^2 AND A MAJOR CONTRIBUTOR TO TIME COMPLEXITY
     """
     size = matrix.shape[1]
     cost = 0
@@ -104,7 +106,23 @@ def insert_node_in_sorted_list(sorted_list: list, node) -> list:
     
 class Path_node:
     """
-    
+    A node of the state space tree used for central storage in the branch and bound algorithm.
+    The node represents the partial expansion of one path through the graph (and likewise) through
+    the state space tree. 
+
+    :param parent: the node representing the parent of this node
+    :param next_node: the node of the higher-level graph that this path node represents the expansion to
+
+    Fields:
+    :parent: a path_node representing the parent of this node
+    :parent_last: the last graph node the parent node touched
+    :children: the children of this path node
+    :remaining_graph_nodes: the graph nodes that the path so far has not touched
+    :elapsed: the graph nodes that the path so far has touched
+    :lower_bound: the "lower bound" of this path. Represents the lowest possible cost of any expansion of this path
+    :adjacency_matrix: the adjacency matrix representing the current state of the graph. inaccessible paths have
+    their weights replaced with infinity and rows and columns have been reduced as appropriate (see references for
+    details)
     """
     def __init__(self, parent, next_node):
         self.parent = parent
@@ -134,23 +152,38 @@ class Path_node:
         return print_string
     
     def branch(self, node):
+        """
+        Makes a new path node with this as the parent and going to graph node "node"
+        """
         vertex = Path_node(self, node)
         self.children.append(vertex)
         return vertex
     def get_elapsed(self):
+        """
+        Simple getter
+        """
         return self.elapsed
     def get_remaining(self):
+        """
+        Simple getter
+        """
         return self.remaining_graph_nodes
     def get_adj(self):
+        """
+        Simple getter
+        """
         return self.adjacency_matrix
     def has_nodes_remaining(self):
+        """
+        Simple boolean checking if there's any graph nodes left to explore
+        """
         if len(self.remaining_graph_nodes) == 0:
             return False
         return True
 
 class Root_Node:
     """
-    
+    Functionally the same as the path node but slightly different initialization
     """
     def __init__(self, graph: nx.Graph):
         self.children = []
