@@ -1,3 +1,8 @@
+MORE BIBLIOGRAPHY STUFF HERE
+
+
+
+
 All these resources were used to research how the branch and bound algorithm works on a fundamental level.
 
 [1] “Travelling Salesman Problem | Branch and Bound | Scholarly Things.” YouTube, YouTube, 11 May 2022, https://www.youtube.com/watch?v=aaaVm6uUY5A.
