@@ -170,7 +170,12 @@ def run_on_range_no_correct(graph_making_alg, algorithm, sizes):
     """
     times = []
     for size in sizes:
-        graph = graph_making_alg(size)
+        if graph_making_alg == utils.rectangle_graph:
+            width = get_largest_factor(size)
+            height = int(size / width)
+            graph = graph_making_alg([width, height])
+        else:
+            graph = graph_making_alg(size)
         taken_time = run_on_determined_graph_no_correctness(graph, algorithm)
         times.append(taken_time)
     return times
@@ -182,6 +187,7 @@ def run_multiple_on_range_with_correct(graph_making_alg, algorithm, sizes, num_r
     super_times = []
     super_correct = []
     for size in sizes:
+        #print(f"size: {size}")
         times = []
         corrs = []
         for run in range(num_runs):
@@ -202,6 +208,7 @@ def run_multiple_on_range_no_correct(graph_making_alg, algorithm, sizes, num_run
     """
     super_times = []
     for size in sizes:
+        #print(f"size: {size}")
         times = []
         for run in range(num_runs):
             taken = run_on_range_no_correct(graph_making_alg, algorithm, [size])
