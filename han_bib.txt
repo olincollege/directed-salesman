@@ -1,4 +1,6 @@
-https://www.geeksforgeeks.org/traveling-salesman-problem-using-branch-and-bound-2/
-https://www.youtube.com/watch?v=aaaVm6uUY5A
-https://www.techiedelight.com/travelling-salesman-problem-using-branch-and-bound/
-https://codecrucks.com/travelling-salesman-problem-solved-using-branch-and-bound/
+All these resources were used to research how the branch and bound algorithm works on a fundamental level.
+
+[1] “Travelling Salesman Problem | Branch and Bound | Scholarly Things.” YouTube, YouTube, 11 May 2022, https://www.youtube.com/watch?v=aaaVm6uUY5A.
+[2] “Traveling Salesman Problem Using Branch and Bound.” GeeksforGeeks, 31 Oct. 2022, https://www.geeksforgeeks.org/traveling-salesman-problem-using-branch-and-bound-2/. 
+[3] “Travelling Salesman Problem Using Branch and Bound.” Techie Delight, 21 May 2021, https://www.techiedelight.com/travelling-salesman-problem-using-branch-and-bound/. 
+[4] Codecrucks. “Travelling Salesman Problem - Solved Using Branch and Bound.” CodeCrucks, 10 June 2022, https://codecrucks.com/travelling-salesman-problem-solved-using-branch-and-bound/. 
